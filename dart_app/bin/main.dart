@@ -21,8 +21,8 @@ void main() {
       case '1':
         print('\n--- Novo cadastro ---');
 
-        final titulo = lerTextoNaoVazio('Título: ');
-        final autor = lerTextoNaoVazio('Autor: ');
+        final titulo = lerTextoSemNumero('Título: ');
+        final autor = lerTextoSemNumero('Autor: ');
         final ano = lerAnoValido('Ano: ');
 
         service.adicionar(titulo, autor, ano);
@@ -39,7 +39,7 @@ void main() {
         if (livroAntigo != null) {
           print('Editando: ${livroAntigo.titulo}');
 
-          stdout.write('Novo título: ');
+          stdout.write('Novo título (OBS: CASO QUEIRA MANTER O VALOR ATUAL, APENAS PRESSIONE ENTER): ');
           final nTituloInput = stdin.readLineSync();
 
           stdout.write('Novo autor: ');
@@ -50,14 +50,21 @@ void main() {
 
           final nTitulo = (nTituloInput == null || nTituloInput.trim().isEmpty)
               ? livroAntigo.titulo
-              : nTituloInput;
+              : (temNumero(nTituloInput)
+                  ? livroAntigo.titulo
+                  : nTituloInput);
 
           final nAutor = (nAutorInput == null || nAutorInput.trim().isEmpty)
               ? livroAntigo.autor
-              : nAutorInput;
+              : (temNumero(nAutorInput)
+                  ? livroAntigo.autor
+                  : nAutorInput);
 
           int nAno;
           if (nAnoInput == null || nAnoInput.trim().isEmpty) {
+            nAno = livroAntigo.ano;
+          } else if (nAnoInput.length > 4) {
+            print('Ano inválido (máx. 4 dígitos). Mantendo valor anterior.');
             nAno = livroAntigo.ano;
           } else {
             final parsed = int.tryParse(nAnoInput);
@@ -103,6 +110,29 @@ String lerTextoNaoVazio(String mensagem) {
 
     return input;
   }
+}
+
+String lerTextoSemNumero(String mensagem) {
+  while (true) {
+    stdout.write(mensagem);
+    final input = stdin.readLineSync();
+
+    if (input == null || input.trim().isEmpty) {
+      print('Este campo não pode ser vazio.');
+      continue;
+    }
+
+    if (temNumero(input)) {
+      print('Não é permitido números neste campo.');
+      continue;
+    }
+
+    return input;
+  }
+}
+
+bool temNumero(String texto) {
+  return texto.contains(RegExp(r'[0-9]'));
 }
 
 int lerAnoValido(String mensagem) {
