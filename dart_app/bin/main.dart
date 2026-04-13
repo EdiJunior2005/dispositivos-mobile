@@ -39,13 +39,13 @@ void main() {
         if (livroAntigo != null) {
           print('Editando: ${livroAntigo.titulo}');
 
-          stdout.write('Novo título (enter mantém): ');
+          stdout.write('Novo título: ');
           final nTituloInput = stdin.readLineSync();
 
-          stdout.write('Novo autor (enter mantém): ');
+          stdout.write('Novo autor: ');
           final nAutorInput = stdin.readLineSync();
 
-          stdout.write('Novo ano (enter mantém): ');
+          stdout.write('Novo ano: ');
           final nAnoInput = stdin.readLineSync();
 
           final nTitulo = (nTituloInput == null || nTituloInput.trim().isEmpty)
@@ -112,6 +112,11 @@ int lerAnoValido(String mensagem) {
 
     if (input == null || input.trim().isEmpty) {
       print('Este campo não pode ser vazio.');
+      continue;
+    }
+
+    if (input.length > 4) {
+      print('O ano deve ter no máximo 4 dígitos.');
       continue;
     }
 
