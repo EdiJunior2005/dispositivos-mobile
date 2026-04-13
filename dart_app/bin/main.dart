@@ -21,14 +21,9 @@ void main() {
       case '1':
         print('\n--- Novo cadastro ---');
 
-        stdout.write('Título: ');
-        final titulo = stdin.readLineSync() ?? '';
-
-        stdout.write('Autor: ');
-        final autor = stdin.readLineSync() ?? '';
-
-        stdout.write('Ano: ');
-        final ano = int.tryParse(stdin.readLineSync() ?? '') ?? 0;
+        final titulo = lerTextoNaoVazio('Título: ');
+        final autor = lerTextoNaoVazio('Autor: ');
+        final ano = lerAnoValido('Ano: ');
 
         service.adicionar(titulo, autor, ano);
         break;
@@ -38,22 +33,41 @@ void main() {
         break;
 
       case '3':
-        stdout.write('\nInforme o ID do livro: ');
-        final idAtu = stdin.readLineSync() ?? '';
-
+        final idAtu = lerTextoNaoVazio('\nInforme o ID do livro: ');
         final livroAntigo = service.buscarPorId(idAtu);
 
         if (livroAntigo != null) {
           print('Editando: ${livroAntigo.titulo}');
 
-          stdout.write('Novo título: ');
-          final nTitulo = stdin.readLineSync() ?? '';
+          stdout.write('Novo título (enter mantém): ');
+          final nTituloInput = stdin.readLineSync();
 
-          stdout.write('Novo autor: ');
-          final nAutor = stdin.readLineSync() ?? '';
+          stdout.write('Novo autor (enter mantém): ');
+          final nAutorInput = stdin.readLineSync();
 
-          stdout.write('Novo ano: ');
-          final nAno = int.tryParse(stdin.readLineSync() ?? '') ?? 0;
+          stdout.write('Novo ano (enter mantém): ');
+          final nAnoInput = stdin.readLineSync();
+
+          final nTitulo = (nTituloInput == null || nTituloInput.trim().isEmpty)
+              ? livroAntigo.titulo
+              : nTituloInput;
+
+          final nAutor = (nAutorInput == null || nAutorInput.trim().isEmpty)
+              ? livroAntigo.autor
+              : nAutorInput;
+
+          int nAno;
+          if (nAnoInput == null || nAnoInput.trim().isEmpty) {
+            nAno = livroAntigo.ano;
+          } else {
+            final parsed = int.tryParse(nAnoInput);
+            if (parsed == null) {
+              print('Ano inválido. Mantendo valor anterior.');
+              nAno = livroAntigo.ano;
+            } else {
+              nAno = parsed;
+            }
+          }
 
           service.atualizar(idAtu, nTitulo, nAutor, nAno);
         } else {
@@ -62,9 +76,7 @@ void main() {
         break;
 
       case '4':
-        stdout.write('\nInforme o ID do livro: ');
-        final idRem = stdin.readLineSync() ?? '';
-
+        final idRem = lerTextoNaoVazio('\nInforme o ID do livro: ');
         service.remover(idRem);
         break;
 
@@ -76,5 +88,40 @@ void main() {
       default:
         print('\nOpção inválida. Tente novamente.');
     }
+  }
+}
+
+String lerTextoNaoVazio(String mensagem) {
+  while (true) {
+    stdout.write(mensagem);
+    final input = stdin.readLineSync();
+
+    if (input == null || input.trim().isEmpty) {
+      print('Este campo não pode ser vazio.');
+      continue;
+    }
+
+    return input;
+  }
+}
+
+int lerAnoValido(String mensagem) {
+  while (true) {
+    stdout.write(mensagem);
+    final input = stdin.readLineSync();
+
+    if (input == null || input.trim().isEmpty) {
+      print('Este campo não pode ser vazio.');
+      continue;
+    }
+
+    final numero = int.tryParse(input);
+
+    if (numero == null) {
+      print('Digite apenas números.');
+      continue;
+    }
+
+    return numero;
   }
 }
