@@ -23,19 +23,19 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			0Un6+JRozETMeSM2APJFG3HYnIY=
+			3M3B67NqAXkrGem9YvaFvMkWvdI=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"d149faf89468cc44cc79233600f2451b71d89c86"</string>
+			<string>cdhash H"dccdc1ebb36a01792b19e9bd62f685bcc916bdd2"</string>
 		</dict>
 		<key>Frameworks/FlutterMacOS.framework</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			xzSOD6d9dmPAFxwAteGqzjpHcsg=
+			qp76URaT08Z0syoJbmgJZikClGA=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"c7348e0fa77d7663c0171c00b5e1aace3a4772c8"</string>
+			<string>cdhash H"aa9efa511693d3c674b32a096e68096629029460"</string>
 		</dict>
 		<key>MacOS/__preview.dylib</key>
 		<dict>
