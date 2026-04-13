@@ -113,7 +113,7 @@
       "name": "sky_engine",
       "rootUri": "file:///opt/homebrew/share/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
-      "languageVersion": "3.9"
+      "languageVersion": "3.10"
     },
     {
       "name": "source_span",
