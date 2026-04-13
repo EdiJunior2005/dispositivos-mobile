@@ -2,34 +2,49 @@ import '../models/livro.dart';
 
 class BibliotecaService {
   final List<Livro> _livros = [];
+  int _proximoId = 1;
 
-  void adicionar(Livro livro) {
-    _livros.add(livro);
-    print('\nLivro "${livro.titulo}" cadastrado com sucesso.');
+  void adicionar(String titulo, String autor, int ano) {
+    final novoLivro = Livro(
+      id: _proximoId.toString(),
+      titulo: titulo,
+      autor: autor,
+      ano: ano,
+    );
+
+    _livros.add(novoLivro);
+    print('\nLivro cadastrado com ID: $_proximoId');
+    _proximoId++;
   }
 
   void listar() {
     print('\n========== LISTA DE LIVROS ==========');
-    
+
     if (_livros.isEmpty) {
-      print('Nenhum livro cadastrado ainda.');
+      print('Nenhum livro cadastrado.');
     } else {
       _livros.forEach((livro) => print(livro));
     }
-    
+
     print('=====================================');
   }
 
-  bool atualizar(String id, Livro novoLivro) {
+  bool atualizar(String id, String nTitulo, String nAutor, int nAno) {
     int index = _livros.indexWhere((l) => l.id == id);
 
     if (index != -1) {
-      _livros[index] = novoLivro;
+      _livros[index] = Livro(
+        id: id,
+        titulo: nTitulo,
+        autor: nAutor,
+        ano: nAno,
+      );
+
       print('\nLivro atualizado com sucesso.');
       return true;
     }
 
-    print('\nLivro não encontrado para atualização.');
+    print('\nLivro não encontrado.');
     return false;
   }
 
