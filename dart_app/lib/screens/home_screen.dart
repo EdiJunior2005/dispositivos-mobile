@@ -32,7 +32,7 @@ class HomeScreen extends ConsumerWidget {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
@@ -59,11 +59,18 @@ class HomeScreen extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final task = tasks[index];
                 return Card(
+                  elevation: 2,
                   margin: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 6,
                   ),
                   child: ListTile(
+                    leading: Checkbox(
+                      value: task.completed,
+                      onChanged: (_) {
+                        ref.read(taskProvider.notifier).toggleTask(index);
+                      },
+                    ),
                     title: Text(
                       task.title,
                       style: TextStyle(
@@ -72,12 +79,6 @@ class HomeScreen extends ConsumerWidget {
                             : null,
                         color: task.completed ? Colors.grey : Colors.black,
                       ),
-                    ),
-                    leading: Checkbox(
-                      value: task.completed,
-                      onChanged: (_) {
-                        ref.read(taskProvider.notifier).toggleTask(index);
-                      },
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -91,7 +92,7 @@ class HomeScreen extends ConsumerWidget {
                         IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
                           onPressed: () {
-                            ref.read(taskProvider.notifier).removeTask(index);
+                            _confirmDelete(context, ref, index);
                           },
                         ),
                       ],
@@ -144,5 +145,31 @@ void _showEditDialog(
         ],
       );
     },
+  );
+}
+
+void _confirmDelete(BuildContext context, WidgetRef ref, int index) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Confirmar exclusão'),
+      content: const Text('Tem certeza que deseja excluir esta tarefa?'),
+      actions: [
+        TextButton(
+          child: const Text('Não'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+          child: const Text('Sim'),
+          onPressed: () {
+            ref.read(taskProvider.notifier).removeTask(index);
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    ),
   );
 }
