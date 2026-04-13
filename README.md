@@ -52,4 +52,4 @@ Essa abordagem melhora a organização, reutilização e manutenção do código
 
 2. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/EdiJunior2005/dispositivos-mobile
