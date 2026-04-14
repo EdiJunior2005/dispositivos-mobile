@@ -64,8 +64,10 @@ flutter doctor
 
 ## Prints ou GIFs Demonstrando o Funcionamento
 
-![Tela Inicial](caminho/para/sua/imagem_tela_inicial.png)
+![Tela Inicial](home.png)
 
-![Adicionando e Concluindo Tarefas](caminho/para/sua/imagem_tarefas.png)
+![Adicionando e Concluindo Tarefas](concluido.png)
 
-![Editando e Excluindo](caminho/para/seu/gif_funcionamento.gif)
+![Editando](editando.png)
+
+![Excluindo](deletando.png)
