@@ -53,3 +53,7 @@ Essa abordagem melhora a organização, reutilização e manutenção do código
 2. Clone o repositório:
 ```bash
 git clone https://github.com/EdiJunior2005/dispositivos-mobile
+
+3. Rodar o codigo 
+```  lib git:(atividade-03-iryane) cd ..
+``` dart_app git:(atividade-03-iryane) flutter run
