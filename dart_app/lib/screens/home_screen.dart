@@ -14,7 +14,6 @@ class HomeScreen extends ConsumerWidget {
       appBar: AppBar(title: const Text('To-Do List'), centerTitle: true),
       body: Column(
         children: [
-          // 🔹 Seção: Nova tarefa
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -51,8 +50,6 @@ class HomeScreen extends ConsumerWidget {
               ],
             ),
           ),
-
-          // 🔹 Lista de tarefas
           Expanded(
             child: ListView.builder(
               itemCount: tasks.length,
