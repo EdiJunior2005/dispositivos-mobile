@@ -1,8 +1,19 @@
-Contribuição dos integrantes:
+## Como executar
 
-Danilo - Realizou a Documentação das atividades
-Pedro Terra - Realizou a biblioteca da Atividade 02
-Iryane - Realizou a calculadora da Atividade 03
-Edi -  Realizou o To Do List Atividade 04
+### Flutter
 
-Tudo que foi feito esta documendo nos README.md das branches
+```bash
+cd flutter/app
+flutter pub get
+flutter run
+flutter test
+```
+
+### Dart
+
+```bash
+cd dart/dart_app
+dart pub get
+dart run bin/dart_examples.dart
+dart test
+```
