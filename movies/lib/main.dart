@@ -7,8 +7,7 @@ import 'package:movies/ui/theme/theme.dart';
 
 import 'package:movies/providers.dart';
 
-/// This is the main entry point for Flutter
-/// Use the runApp method to start your app
+/// Inicialização do sistema de filmes
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   putLumberdashToWork(withClients: [
@@ -32,7 +31,7 @@ class _MainAppState extends ConsumerState<MainApp> {
     final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       routerConfig: router.config(),
-      title: 'Movies',
+      title: 'CineApp Unicesumar',
       debugShowCheckedModeBanner: false,
       theme: createTheme(),
     );
