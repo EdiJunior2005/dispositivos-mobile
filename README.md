@@ -1,4 +1,4 @@
-# ShopApp - Ecommerce Flutter
+# Ecommerce - Ecommerce Flutter
 
 Aplicativo de ecommerce desenvolvido com Flutter, baseado em Clean Architecture.
 

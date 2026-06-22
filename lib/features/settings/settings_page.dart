@@ -35,7 +35,7 @@ class SettingsPage extends ConsumerWidget {
           ),
           const ListTile(
             leading: Icon(Icons.info_outline),
-            title: Text('ShopApp'),
+            title: Text('Ecommerce'),
             subtitle: Text('Versão 1.0.0 · Projeto Flutter'),
           ),
         ],

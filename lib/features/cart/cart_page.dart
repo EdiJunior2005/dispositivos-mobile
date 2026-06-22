@@ -128,7 +128,7 @@ class CartPage extends ConsumerWidget {
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Compra finalizada com sucesso! 🎉'),
+                          content: Text('Compra finalizada com sucesso!'),
                         ),
                       );
                     },

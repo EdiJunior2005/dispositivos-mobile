@@ -46,15 +46,20 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
       // 1. Verifica que está na tela Home (loja)
-      expect(find.text('ShopApp'), findsOneWidget);
+      expect(find.text('Ecommerce'), findsOneWidget);
 
       // 2. Verifica que o produto fake aparece
       expect(find.text('Produto Integração'), findsOneWidget);
 
       // 3. Navega para o Carrinho via bottom nav
-      final cartNavItem = find.byIcon(Icons.shopping_cart_outlined);
-      expect(cartNavItem, findsWidgets);
-      await tester.tap(cartNavItem.first);
+      // Usamos find.byType(NavigationDestination) para garantir que clicamos na barra inferior
+      // e não no botão de carrinho que existe dentro do card do produto.
+      final cartNavItem = find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.byIcon(Icons.shopping_cart_outlined),
+      );
+      expect(cartNavItem, findsOneWidget);
+      await tester.tap(cartNavItem);
       await tester.pumpAndSettle();
 
       // 4. Verifica que o carrinho está vazio inicialmente
@@ -66,7 +71,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // 6. Verifica que voltou para a Home
-      expect(find.text('ShopApp'), findsOneWidget);
+      expect(find.text('Ecommerce'), findsOneWidget);
 
       // 7. Navega para Configurações
       final settingsNavItem = find.byIcon(Icons.settings_outlined);

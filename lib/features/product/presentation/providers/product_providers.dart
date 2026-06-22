@@ -7,6 +7,7 @@ import 'package:ecommerce_app/features/product/data/sources/remote_product_sourc
 import 'package:ecommerce_app/features/product/domain/entities/product_entity.dart';
 import 'package:ecommerce_app/features/product/domain/repositories/product_repository.dart';
 
+// ── Infra providers ──────────────────────────────────────────────────────────
 
 final dioProvider = Provider<Dio>((ref) => Dio());
 
@@ -29,6 +30,8 @@ final productRepositoryProvider = Provider<ProductRepository>((ref) {
   );
 });
 
+// ── Category filter ──────────────────────────────────────────────────────────
+
 class SelectedCategoryNotifier extends Notifier<String?> {
   @override
   String? build() => null;
@@ -36,10 +39,11 @@ class SelectedCategoryNotifier extends Notifier<String?> {
   void select(String? category) => state = category;
 }
 
-final selectedCategoryProvider =
-    NotifierProvider<SelectedCategoryNotifier, String?>(
-      SelectedCategoryNotifier.new,
-    );
+final selectedCategoryProvider = NotifierProvider<SelectedCategoryNotifier, String?>(
+  SelectedCategoryNotifier.new,
+);
+
+// ── Product list (paginated) ─────────────────────────────────────────────────
 
 class ProductListNotifier extends AsyncNotifier<List<ProductEntity>> {
   int _skip = 0;
@@ -56,7 +60,7 @@ class ProductListNotifier extends AsyncNotifier<List<ProductEntity>> {
 
   Future<void> loadMore() async {
     final current = <ProductEntity>[...state.value ?? []];
-    final repo = ref.watch(productRepositoryProvider);
+    final repo = ref.read(productRepositoryProvider);
     _skip += _pageSize;
     final more = await repo.getAllProducts(_skip, _pageSize);
     current.addAll(more);
@@ -66,12 +70,16 @@ class ProductListNotifier extends AsyncNotifier<List<ProductEntity>> {
 
 final productListProvider =
     AsyncNotifierProvider<ProductListNotifier, List<ProductEntity>>(
-      () => ProductListNotifier(),
-    );
+  ProductListNotifier.new,
+);
+
+// ── Categories ───────────────────────────────────────────────────────────────
 
 final categoriesProvider = FutureProvider<List<String>>((ref) {
   return ref.watch(productRepositoryProvider).getCategories();
 });
+
+// ── Cart ─────────────────────────────────────────────────────────────────────
 
 class CartNotifier extends AsyncNotifier<List<ProductEntity>> {
   @override
@@ -81,25 +89,26 @@ class CartNotifier extends AsyncNotifier<List<ProductEntity>> {
   }
 
   Future<void> add(ProductEntity product) async {
-    final repo = ref.watch(productRepositoryProvider);
+    final repo = ref.read(productRepositoryProvider);
     await repo.saveToCart(product);
     state = AsyncData(await repo.getAllCartItems());
   }
 
   Future<bool> remove(int id) async {
-    final repo = ref.watch(productRepositoryProvider);
+    final repo = ref.read(productRepositoryProvider);
     final ok = await repo.removeFromCart(id);
     state = AsyncData(await repo.getAllCartItems());
     return ok;
   }
 }
 
-final cartProvider = AsyncNotifierProvider<CartNotifier, List<ProductEntity>>(
-  () => CartNotifier(),
+final cartProvider =
+    AsyncNotifierProvider<CartNotifier, List<ProductEntity>>(
+  CartNotifier.new,
 );
 
+// ── Product detail ───────────────────────────────────────────────────────────
 
-final productDetailProvider = FutureProvider.autoDispose
-    .family<ProductEntity, int>((ref, id) {
-      return ref.watch(productRepositoryProvider).getProductById(id);
-    });
+final productDetailProvider = FutureProvider.autoDispose.family<ProductEntity, int>((ref, id) {
+  return ref.watch(productRepositoryProvider).getProductById(id);
+});

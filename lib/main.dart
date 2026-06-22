@@ -21,7 +21,7 @@ class MainApp extends ConsumerWidget {
         );
 
     return MaterialApp.router(
-      title: 'ShopApp',
+      title: 'Ecommerce',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,

@@ -43,7 +43,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ShopApp'),
+        title: const Text('Ecommerce'),
         centerTitle: false,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(56),
@@ -60,14 +60,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                     label: 'Todos',
                     selected: selectedCategory == null,
                     onTap: () =>
-                        ref.read(selectedCategoryProvider.notifier).state = null,
+                        ref.read(selectedCategoryProvider.notifier).select(null),
                   ),
                   ...categories.map(
                     (c) => _CategoryChip(
                       label: c,
                       selected: selectedCategory == c,
                       onTap: () =>
-                          ref.read(selectedCategoryProvider.notifier).state = c,
+                          ref.read(selectedCategoryProvider.notifier).select(c),
                     ),
                   ),
                 ],
