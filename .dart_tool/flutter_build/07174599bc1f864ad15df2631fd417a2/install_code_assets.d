@@ -1,0 +1,1 @@
+ /Users/developer/faculdade/dispositivos-mobile/.dart_tool/flutter_build/07174599bc1f864ad15df2631fd417a2/native_assets.json: 

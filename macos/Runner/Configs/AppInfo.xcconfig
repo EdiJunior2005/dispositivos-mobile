@@ -1,0 +1,4 @@
+// Application-level settings for the Runner target.
+PRODUCT_NAME = ecommerce_app
+PRODUCT_BUNDLE_IDENTIFIER = com.example.ecommerceApp
+PRODUCT_COPYRIGHT = Copyright © 2026 com.example. All rights reserved.

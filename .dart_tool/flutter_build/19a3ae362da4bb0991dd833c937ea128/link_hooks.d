@@ -1,0 +1,1 @@
+ /Users/developer/faculdade/dispositivos-mobile/.dart_tool/flutter_build/19a3ae362da4bb0991dd833c937ea128/link_hooks_result.json: 
